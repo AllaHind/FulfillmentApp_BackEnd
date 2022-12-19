@@ -1,5 +1,6 @@
 package com.fullfilmentApp.models;
 
+import com.fullfilmentApp.Enum.ProductStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,8 @@ public class Product {
     private double costPrice;
     private  int stockQuantity;
     private int supplyLevel;
+    @Enumerated(value = EnumType.STRING)
+    private ProductStatus status;
 
 
 }

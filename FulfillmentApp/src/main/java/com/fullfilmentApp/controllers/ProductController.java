@@ -3,6 +3,7 @@ package com.fullfilmentApp.controllers;
 import com.fullfilmentApp.models.Product;
 import com.fullfilmentApp.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,11 @@ public class ProductController {
     @GetMapping("")
     public List<Product> listProduct() {
         return productService.listProduct();
+    }
+
+    @Query("select p from Product p where p.name LIKE :x% or p.sku LIKE :x%")
+    @GetMapping("/findByAttributes/{x}")
+    public List<Product> findProductsByAttributes(@PathVariable("x") String x) {
+        return productService.findProductsByAttributes(x);
     }
 }
