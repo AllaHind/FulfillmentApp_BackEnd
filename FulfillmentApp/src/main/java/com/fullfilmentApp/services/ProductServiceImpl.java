@@ -53,8 +53,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<?> updateProduct(Product product,Long id) {
         product.setId(id);
+        if (fieldNullOrEmpty(product.getSku()) || fieldNullOrEmpty(product.getName()) || fieldZero(product.getCostPrice()) || fieldZero(product.getSellingPrice())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("All fields are required!"));
+        }
+        if (product.getStockQuantity() < product.getSupplyLevel()) {
+            product.setStatus(ProductStatus.OUT_OF_STOCK);
+        } else
+            product.setStatus(ProductStatus.IN_STOCK);
         productRepository.save(product);
-        return ResponseEntity.ok(new MessageResponse("Product has been registered successfully!"));
+        return ResponseEntity.ok(new MessageResponse("Product has been updated successfully!"));
 
 
     }
@@ -95,5 +104,10 @@ public class ProductServiceImpl implements ProductService {
 
         }
         else return false;
+    }
+
+    @Query("select count(*) from Product  p where p.status LIKE 'OUT_OF_STOCK'")
+    public int out_of_stock() {
+        return productRepository.out_of_stock();
     }
 }

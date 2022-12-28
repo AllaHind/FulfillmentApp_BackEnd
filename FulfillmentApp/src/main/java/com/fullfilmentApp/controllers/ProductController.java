@@ -2,6 +2,7 @@ package com.fullfilmentApp.controllers;
 
 import com.fullfilmentApp.models.Product;
 import com.fullfilmentApp.services.ProductService;
+import com.fullfilmentApp.services.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductServiceImpl productServiceimp;
 
     @GetMapping("/{id}")
     public Product findProduct(@PathVariable("id") String sku) {
@@ -23,6 +26,7 @@ public class ProductController {
 
     @PostMapping("/")
     public ResponseEntity<?> saveProduct(@RequestBody Product product) {
+
         return productService.saveProduct(product);
     }
 
@@ -45,5 +49,10 @@ public class ProductController {
     @GetMapping("/findByAttributes/{x}")
     public List<Product> findProductsByAttributes(@PathVariable("x") String x) {
         return productService.findProductsByAttributes(x);
+    }
+
+    @GetMapping("/outOfStock")
+    public int out_of_stock() {
+        return productServiceimp.out_of_stock();
     }
 }

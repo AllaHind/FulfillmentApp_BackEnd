@@ -13,5 +13,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     Product findBySku(String sku);
     @Query("select p from Product p where p.name LIKE :x% or p.sku LIKE :x%")
     List<Product> findProductsByAttributes(@Param("x") String x) ;
+    @Query("select count(*) from Product  p where p.status LIKE 'OUT_OF_STOCK'")
+    int out_of_stock();
 
 }
