@@ -6,6 +6,7 @@ import com.fullfilmentApp.models.Product;
 import com.fullfilmentApp.payload.response.MessageResponse;
 import com.fullfilmentApp.repository.CategoryRepository;
 import com.fullfilmentApp.repository.ProductRepository;
+import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -20,6 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+
     @Autowired
     private CategoryRepository categoryRepository;
     public Product findProduct(String sku) {
@@ -27,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public ResponseEntity<?> saveProduct(Product product) {
+
         if (findProduct(product.getSku()) != null) {
             return ResponseEntity
                     .badRequest()
@@ -41,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
             product.setStatus(ProductStatus.OUT_OF_STOCK);
         } else
             product.setStatus(ProductStatus.IN_STOCK);
+
             Category category = categoryRepository.findByLabel(product.getCategory().getLabel());
             product.setCategory(category);
             productRepository.save(product);

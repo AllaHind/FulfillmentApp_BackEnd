@@ -25,6 +25,8 @@ public class Product {
     private double weight;
     @Enumerated(value = EnumType.STRING)
     private ProductStatus status;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
+    private Barcode barcode;
 
 
 

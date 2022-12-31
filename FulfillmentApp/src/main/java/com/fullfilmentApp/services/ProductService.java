@@ -1,15 +1,17 @@
 package com.fullfilmentApp.services;
 
 import com.fullfilmentApp.models.Product;
+import com.google.zxing.WriterException;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductService {
     public Product findProduct(String sku);
-    public ResponseEntity<?> saveProduct(Product product);
+    public ResponseEntity<?> saveProduct(Product product) ;
     public ResponseEntity<?> updateProduct(Product product,Long id);
     public ResponseEntity<?> deleteProduct(Long id);
 
