@@ -1,7 +1,5 @@
 package com.fullfilmentApp.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fullfilmentApp.Enum.ProductStatus;
 import lombok.Data;
 
@@ -23,6 +21,9 @@ public class Product {
     private int supplyLevel;
     private double volume;
     private double weight;
+    private double length;
+    private double height;
+    private double width;
     @Enumerated(value = EnumType.STRING)
     private ProductStatus status;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "product")
