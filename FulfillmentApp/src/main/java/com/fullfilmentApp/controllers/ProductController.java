@@ -3,16 +3,11 @@ package com.fullfilmentApp.controllers;
 import com.fullfilmentApp.models.Product;
 import com.fullfilmentApp.services.ProductService;
 import com.fullfilmentApp.services.ProductServiceImpl;
-import com.fullfilmentApp.services.ZXingHelper;
-import com.google.zxing.WriterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -61,12 +56,8 @@ public class ProductController {
         return productServiceimp.out_of_stock();
     }
 
-    @GetMapping("qrcode/{sku}")
-    public void qrcode(@PathVariable("sku") String sku, HttpServletResponse response) throws Exception {
-        response.setContentType("image/png");
-        OutputStream outputStream = response.getOutputStream();
-        outputStream.write(ZXingHelper.getBarCodeImage(sku, 200, 200));
-        outputStream.flush();
-
+    @GetMapping("/mostOrderdProduct")
+    public String mostOrderedProduct() {
+        return productServiceimp.mostOrderedProduct();
     }
 }

@@ -15,5 +15,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     List<Product> findProductsByAttributes(@Param("x") String x) ;
     @Query("select count(*) from Product  p where p.status LIKE 'OUT_OF_STOCK'")
     int out_of_stock();
-
+    @Query(nativeQuery = true,value = "SELECT p.name FROM order_item,product p where p.id=order_item.product_id GROUP BY order_item.product_id ORDER BY Count(*) DESC LIMIT 1")
+    String mostOrderedProduct();
 }

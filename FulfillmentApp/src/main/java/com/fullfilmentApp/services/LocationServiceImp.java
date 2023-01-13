@@ -57,4 +57,8 @@ public class LocationServiceImp implements  LocationService{
                 .body(new MessageResponse("Location has been updated successfully!"));
 
     }
+
+    public List<Location> findAllByTakenIsFalse() {
+        return locationRepository.findAllByIsTakenIsFalse();
+    }
 }

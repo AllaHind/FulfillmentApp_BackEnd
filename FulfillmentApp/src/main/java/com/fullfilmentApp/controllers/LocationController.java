@@ -3,6 +3,7 @@ package com.fullfilmentApp.controllers;
 import com.fullfilmentApp.models.Location;
 import com.fullfilmentApp.repository.LocationRepository;
 import com.fullfilmentApp.services.LocationService;
+import com.fullfilmentApp.services.LocationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,10 @@ public class LocationController {
     private LocationService locationService;
     @Autowired
     private LocationRepository locationRepository;
+    @Autowired
+    private LocationServiceImp locationServiceImp;
 
-    @GetMapping("/{label}")
+    @GetMapping("/{code}")
     public Location findLocation(@PathVariable("code") String code) {
         return locationService.getLocation(code);
     }
@@ -42,6 +45,8 @@ public class LocationController {
     public List<Location> listLocation() {
         return locationService.listLocation();
     }
-
-
+     @GetMapping("/notTaken")
+    public List<Location> findAllByIsTakenIsFalse() {
+        return locationServiceImp.findAllByTakenIsFalse();
+    }
 }

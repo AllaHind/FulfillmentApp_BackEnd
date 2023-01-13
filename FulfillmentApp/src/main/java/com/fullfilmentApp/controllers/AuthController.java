@@ -1,4 +1,4 @@
-/*
+
 package com.fullfilmentApp.controllers;
 
 import java.util.HashSet;
@@ -128,4 +128,4 @@ public class AuthController {
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 }
-*/
+

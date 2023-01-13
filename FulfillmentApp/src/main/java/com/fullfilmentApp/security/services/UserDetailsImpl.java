@@ -1,4 +1,4 @@
-/*
+
 package com.fullfilmentApp.security.services;
 
 import java.util.Collection;
@@ -102,4 +102,4 @@ public class UserDetailsImpl implements UserDetails {
     return Objects.equals(id, user.id);
   }
 }
-*/
+

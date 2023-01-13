@@ -1,4 +1,4 @@
-/*
+
 package com.fullfilmentApp.security.jwt;
 
 import java.io.IOException;
@@ -63,4 +63,4 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     return null;
   }
 }
-*/
+

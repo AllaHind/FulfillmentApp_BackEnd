@@ -1,4 +1,4 @@
-/*
+
 package com.fullfilmentApp.security.jwt;
 
 import java.io.IOException;
@@ -42,4 +42,3 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint {
   }
 
 }
-*/
