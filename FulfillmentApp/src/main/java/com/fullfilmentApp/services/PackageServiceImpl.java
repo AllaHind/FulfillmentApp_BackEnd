@@ -26,6 +26,7 @@ public class PackageServiceImpl implements PackageService {
         Random random = new Random();
         int randomNumber = random.nextInt(99999 - 10000 + 1) + 10000;
         packagee.setCode("PKG-"+randomNumber);
+        packagee.setStatus("Available");
         packageRepository.save(packagee);
         return  ResponseEntity
                 .ok()

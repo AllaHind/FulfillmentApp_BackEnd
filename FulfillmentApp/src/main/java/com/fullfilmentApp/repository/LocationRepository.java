@@ -12,4 +12,9 @@ public interface LocationRepository extends JpaRepository<Location,Long> {
     @Query(nativeQuery = true,value = "select * from location l where l.is_taken=false LIMIT 1")
     Location findEmptyLocation();
     List<Location> findAllByIsTakenIsFalse();
+
+    @Query(nativeQuery = true,value = "select count(*) from location l where l.is_taken=false")
+    int countNotTaken();
+
+
 }

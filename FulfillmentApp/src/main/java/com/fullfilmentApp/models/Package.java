@@ -1,5 +1,6 @@
 package com.fullfilmentApp.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class Package {
     private double maxWeight;
     private String status;
     @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Packaging packaging;
     @OneToOne
   private   OrderItem orderItem;

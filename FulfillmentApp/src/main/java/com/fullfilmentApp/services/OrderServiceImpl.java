@@ -1,21 +1,17 @@
 package com.fullfilmentApp.services;
 
 import com.fullfilmentApp.Enum.OrderStatus;
+import com.fullfilmentApp.Enum.PackagingStatus;
 import com.fullfilmentApp.Enum.ProductStatus;
-import com.fullfilmentApp.models.Customer;
-import com.fullfilmentApp.models.Order;
-import com.fullfilmentApp.models.OrderItem;
-import com.fullfilmentApp.models.Product;
+import com.fullfilmentApp.models.*;
 import com.fullfilmentApp.payload.response.MessageResponse;
-import com.fullfilmentApp.repository.CustomerRepository;
-import com.fullfilmentApp.repository.OrderItemRepository;
-import com.fullfilmentApp.repository.OrderRepository;
-import com.fullfilmentApp.repository.ProductRepository;
+import com.fullfilmentApp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -31,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
     private CustomerRepository customerRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private PackagingRepository packagingRepository;
 
     @Override
     public Order findOrder(String code) {
@@ -92,5 +90,25 @@ public class OrderServiceImpl implements OrderService {
 
     public int orderPending() {
         return orderRepository.orderPending();
+    }
+
+    public void changeStatus(String sku,OrderStatus status)
+    {
+        Order order=orderRepository.findByCode(sku);
+        Packaging packaging=packagingRepository.findByOrderCode(sku);
+        order.setStatus(status);
+        if(status.equals(OrderStatus.SHIPPED))
+        {
+            order.setShippedAt(LocalDateTime.now());
+            packaging.setStatus(PackagingStatus.SHIPPED);
+        }
+        if(status.equals(OrderStatus.DELIVERED))
+        {
+            order.setDeliveredAt(LocalDateTime.now());
+            packaging.setStatus(PackagingStatus.DELIVERED);
+
+        }
+        orderRepository.save(order);
+        packagingRepository.save(packaging);
     }
 }

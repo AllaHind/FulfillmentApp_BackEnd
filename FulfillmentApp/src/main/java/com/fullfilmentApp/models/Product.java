@@ -23,9 +23,6 @@ public class Product {
     private int supplyLevel;
     private double volume;
     private double weight;
-    private double length;
-    private double height;
-    private double width;
     @Enumerated(value = EnumType.STRING)
     private ProductStatus status;
 

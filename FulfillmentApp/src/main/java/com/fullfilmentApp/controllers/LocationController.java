@@ -5,6 +5,7 @@ import com.fullfilmentApp.repository.LocationRepository;
 import com.fullfilmentApp.services.LocationService;
 import com.fullfilmentApp.services.LocationServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +49,10 @@ public class LocationController {
      @GetMapping("/notTaken")
     public List<Location> findAllByIsTakenIsFalse() {
         return locationServiceImp.findAllByTakenIsFalse();
+    }
+
+    @GetMapping("/countTaken")
+    public int countNotTaken() {
+        return locationRepository.countNotTaken();
     }
 }

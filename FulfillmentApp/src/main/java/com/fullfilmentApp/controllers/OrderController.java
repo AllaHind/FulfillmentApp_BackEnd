@@ -1,6 +1,7 @@
 package com.fullfilmentApp.controllers;
 
 
+import com.fullfilmentApp.Enum.OrderStatus;
 import com.fullfilmentApp.models.Order;
 import com.fullfilmentApp.models.OrderItem;
 import com.fullfilmentApp.services.OrderService;
@@ -47,5 +48,9 @@ public class OrderController {
    @GetMapping("/orderPending")
     public int orderPending() {
         return orderServiceImp.orderPending();
+    }
+    @PostMapping("/changeStatus/{sku}/{status}")
+    public void changeStatus(@PathVariable("sku") String sku,@PathVariable("status") OrderStatus status) {
+        orderServiceImp.changeStatus(sku, status);
     }
 }
