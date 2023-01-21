@@ -35,7 +35,8 @@ public class Order {
     private OrderStatus status;
     private LocalDateTime shippedAt;
     private LocalDateTime deliveredAt;
-
+    @ManyToOne
+    private User user;
 
 
 }

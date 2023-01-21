@@ -33,6 +33,7 @@ public class PackagingServiceImpl {
     public Packaging savePackaging(Packaging packaging) {
         packaging.setCode(generateRandomString(6));
         packaging.setStatus(PackagingStatus.PREPARED);
+        packaging.setCreatedAt(LocalDateTime.now());
         Order order = orderRepository.findByCode(packaging.getOrder().getCode());
         packaging.setOrder(order);
         List<OrderItem> orderItems = order.getItems();

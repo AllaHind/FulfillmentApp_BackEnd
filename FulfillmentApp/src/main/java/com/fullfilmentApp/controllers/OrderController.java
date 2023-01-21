@@ -49,8 +49,8 @@ public class OrderController {
     public int orderPending() {
         return orderServiceImp.orderPending();
     }
-    @PostMapping("/changeStatus/{sku}/{status}")
-    public void changeStatus(@PathVariable("sku") String sku,@PathVariable("status") OrderStatus status) {
-        orderServiceImp.changeStatus(sku, status);
+    @PostMapping("/changeStatus/{sku}/{status}/{username}")
+    public void changeStatus(@PathVariable("sku") String sku,@PathVariable("status") OrderStatus status,@PathVariable("username") String username) {
+        orderServiceImp.changeStatus(sku, status,username);
     }
 }

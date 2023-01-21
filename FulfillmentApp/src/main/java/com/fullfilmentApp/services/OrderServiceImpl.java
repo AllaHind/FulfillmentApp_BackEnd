@@ -20,9 +20,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    private OrderItemRepository orderItemRepository;
-    @Autowired
-    private OrderItemService orderItemService;
+    private UserRepository userRepository;
     @Autowired
     private CustomerRepository customerRepository;
     @Autowired
@@ -92,14 +90,17 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.orderPending();
     }
 
-    public void changeStatus(String sku,OrderStatus status)
+    public Order changeStatus(String sku,OrderStatus status,String username)
     {
         Order order=orderRepository.findByCode(sku);
+        User user = userRepository.findByUsername(username).orElse(null);
+        order.setUser(user);
         Packaging packaging=packagingRepository.findByOrderCode(sku);
         order.setStatus(status);
         if(status.equals(OrderStatus.SHIPPED))
         {
             order.setShippedAt(LocalDateTime.now());
+            order.setDeliveredAt(null);
             packaging.setStatus(PackagingStatus.SHIPPED);
         }
         if(status.equals(OrderStatus.DELIVERED))
@@ -110,5 +111,7 @@ public class OrderServiceImpl implements OrderService {
         }
         orderRepository.save(order);
         packagingRepository.save(packaging);
+
+        return  order;
     }
 }

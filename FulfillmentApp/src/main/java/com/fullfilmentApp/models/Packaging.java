@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity @Data
@@ -15,6 +16,7 @@ public class Packaging {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String code;
+    private  LocalDateTime createdAt;
     @Enumerated(value = EnumType.STRING)
     private PackagingStatus status;
     @OneToMany(mappedBy = "packaging")
